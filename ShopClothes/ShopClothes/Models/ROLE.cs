@@ -12,20 +12,20 @@ namespace ShopClothes.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGORIES
+    public partial class ROLE
     {
-        public CATEGORIES()
+        public ROLE()
         {
-            this.PRODUCTS = new HashSet<PRODUCT>();
+            this.USERS = new HashSet<USER>();
         }
     
         public int ID { get; set; }
-        public string NAME { get; set; }
+        public string ROLENAME { get; set; }
         public Nullable<int> CREATEBY { get; set; }
         public System.DateTime CREATEAT { get; set; }
         public Nullable<int> UPDATEBY { get; set; }
         public Nullable<System.DateTime> UPDATEAT { get; set; }
     
-        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
+        public virtual ICollection<USER> USERS { get; set; }
     }
 }

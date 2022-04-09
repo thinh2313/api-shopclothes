@@ -12,20 +12,16 @@ namespace ShopClothes.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGORIES
+    public partial class COLOR
     {
-        public CATEGORIES()
+        public COLOR()
         {
-            this.PRODUCTS = new HashSet<PRODUCT>();
+            this.DETAIL_PRODUCT = new HashSet<DETAIL_PRODUCT>();
         }
     
         public int ID { get; set; }
         public string NAME { get; set; }
-        public Nullable<int> CREATEBY { get; set; }
-        public System.DateTime CREATEAT { get; set; }
-        public Nullable<int> UPDATEBY { get; set; }
-        public Nullable<System.DateTime> UPDATEAT { get; set; }
     
-        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
+        public virtual ICollection<DETAIL_PRODUCT> DETAIL_PRODUCT { get; set; }
     }
 }

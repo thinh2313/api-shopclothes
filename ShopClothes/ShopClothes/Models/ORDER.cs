@@ -12,20 +12,23 @@ namespace ShopClothes.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGORIES
+    public partial class ORDER
     {
-        public CATEGORIES()
+        public ORDER()
         {
-            this.PRODUCTS = new HashSet<PRODUCT>();
+            this.BILLs = new HashSet<BILL>();
+            this.DE_ORDER = new HashSet<DE_ORDER>();
         }
     
         public int ID { get; set; }
-        public string NAME { get; set; }
-        public Nullable<int> CREATEBY { get; set; }
-        public System.DateTime CREATEAT { get; set; }
-        public Nullable<int> UPDATEBY { get; set; }
-        public Nullable<System.DateTime> UPDATEAT { get; set; }
+        public System.DateTime DAY { get; set; }
+        public int ORI_PRICE { get; set; }
+        public double TOTALMONEY { get; set; }
+        public string NOTE { get; set; }
+        public int STATUS { get; set; }
+        public int METHODS { get; set; }
     
-        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
+        public virtual ICollection<BILL> BILLs { get; set; }
+        public virtual ICollection<DE_ORDER> DE_ORDER { get; set; }
     }
 }

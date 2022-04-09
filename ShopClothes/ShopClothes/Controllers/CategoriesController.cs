@@ -47,7 +47,7 @@ namespace ShopClothes.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(Categories cg)
+        public JsonResult Post(CATEGORIES cg)
         {
             string query = @"
                     insert into dbo.CATEGORIES (NAME,CREATEAT,CREATEBY,UPDATEBY,UPDATEAT) values 
@@ -62,10 +62,10 @@ namespace ShopClothes.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     myCommand.Parameters.AddWithValue("@NAME", cg.NAME);
-                    myCommand.Parameters.AddWithValue("@CREATEAT", cg.CREATEAT);
+                    myCommand.Parameters.AddWithValue("@CREATEAT", DateTime.Now);
                     myCommand.Parameters.AddWithValue("@CREATEBY", cg.CREATEBY ?? (object)DBNull.Value);
                     myCommand.Parameters.AddWithValue("@UPDATEBY", cg.UPDATEBY ?? (object)DBNull.Value);
-                    myCommand.Parameters.AddWithValue("@UPDATEAT", cg.UPDATEAT);
+                    myCommand.Parameters.AddWithValue("@UPDATEAT", DateTime.Now);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -79,7 +79,7 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(Categories cg)
+        public JsonResult Put(CATEGORIES cg)
         {
             string query = @"
                            update dbo.CATEGORIES
@@ -104,7 +104,7 @@ namespace ShopClothes.Controllers
                     myCommand.Parameters.AddWithValue("@CREATEBY", cg.CREATEBY ?? (object)DBNull.Value);
                     myCommand.Parameters.AddWithValue("@CREATEAT", cg.CREATEAT);
                     myCommand.Parameters.AddWithValue("@UPDATEBY", cg.UPDATEBY ?? (object)DBNull.Value);
-                    myCommand.Parameters.AddWithValue("@UPDATEAT", cg.UPDATEAT);
+                    myCommand.Parameters.AddWithValue("@UPDATEAT", DateTime.Now);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

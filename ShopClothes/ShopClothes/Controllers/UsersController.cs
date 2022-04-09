@@ -48,7 +48,7 @@ namespace ShopClothes.Controllers
 
 
         [HttpPost]
-        public JsonResult Post(Users us)
+        public JsonResult Post(USER us)
         {
             string query = @"
                     insert into dbo.USERS (SDT,NAME,ADDRESS,ROLES,CREATEAT) values 
@@ -80,7 +80,7 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(Users us)
+        public JsonResult Put(USER us)
         {
             string query = @"
                            update dbo.USERS

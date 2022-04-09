@@ -12,20 +12,15 @@ namespace ShopClothes.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGORIES
+    public partial class DE_BILL
     {
-        public CATEGORIES()
-        {
-            this.PRODUCTS = new HashSet<PRODUCT>();
-        }
+        public int IDBILL { get; set; }
+        public int IDORDER { get; set; }
+        public int IDPRODUCT { get; set; }
+        public int QUANTITY { get; set; }
+        public string NOTE { get; set; }
     
-        public int ID { get; set; }
-        public string NAME { get; set; }
-        public Nullable<int> CREATEBY { get; set; }
-        public System.DateTime CREATEAT { get; set; }
-        public Nullable<int> UPDATEBY { get; set; }
-        public Nullable<System.DateTime> UPDATEAT { get; set; }
-    
-        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
+        public virtual BILL BILL { get; set; }
+        public virtual DE_ORDER DE_ORDER { get; set; }
     }
 }

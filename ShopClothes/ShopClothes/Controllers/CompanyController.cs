@@ -26,7 +26,7 @@ namespace ShopClothes.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select ID, NAME from dbo.COMPANY";
+                    select ID, NAME from dbo.COMPANIES";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
             SqlDataReader myReader;
@@ -47,10 +47,10 @@ namespace ShopClothes.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(Company cp)
+        public JsonResult Post(COMPANIES cp)
         {
             string query = @"
-                    insert into dbo.COMPANY (NAME) values 
+                    insert into dbo.COMPANIES (NAME) values 
                     (@NAME)
                     ";
             DataTable table = new DataTable();
@@ -75,10 +75,10 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(Company cp)
+        public JsonResult Put(COMPANIES cp)
         {
             string query = @"
-                           update dbo.COMPANY
+                           update dbo.COMPANIES
                            set NAME = @NAME
                             where ID = @ID
                             ";
@@ -109,7 +109,7 @@ namespace ShopClothes.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                           delete from dbo.COMPANY
+                           delete from dbo.COMPANIES
                             where ID=@ID
                             ";
 

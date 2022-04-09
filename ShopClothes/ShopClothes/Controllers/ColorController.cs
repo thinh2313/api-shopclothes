@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using ShopClothes.Models;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ShopClothes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class ColorController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public RolesController(IConfiguration configuration)
+        public ColorController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -26,7 +28,7 @@ namespace ShopClothes.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select ID, ROLENAME from dbo.ROLES";
+                    select ID, Name from dbo.COLOR";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
             SqlDataReader myReader;
@@ -47,11 +49,11 @@ namespace ShopClothes.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(ROLE roles)
+        public JsonResult Post(COLOR COLOR)
         {
             string query = @"
-                    insert into dbo.ROLES (ROLENAME) values 
-                    (@ROLENAME)
+                    insert into dbo.COLOR (NAME) values 
+                    (@NAME)
                     ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
@@ -61,7 +63,7 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@NAME", COLOR.NAME);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -75,11 +77,11 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(ROLE roles)
+        public JsonResult Put(COLOR COLOR)
         {
             string query = @"
-                           update dbo.ROLES
-                           set ROLENAME = @ROLENAME
+                           update dbo.COLOR
+                           set NAME = @NAME
                             where ID = @ID
                             ";
 
@@ -91,8 +93,8 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ID", roles.ID);
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@ID", COLOR.ID);
+                    myCommand.Parameters.AddWithValue("@NAME", COLOR.NAME);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -109,7 +111,7 @@ namespace ShopClothes.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                           delete from dbo.ROLES
+                           delete from dbo.COLOR
                             where ID=@ID
                             ";
 
@@ -133,5 +135,5 @@ namespace ShopClothes.Controllers
             return new JsonResult("Deleted Successfully");
         }
     }
-
 }
+

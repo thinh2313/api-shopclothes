@@ -8,16 +8,16 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using ShopClothes.Models;
-
 namespace ShopClothes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class SizeController : ControllerBase
     {
+
         private readonly IConfiguration _configuration;
 
-        public RolesController(IConfiguration configuration)
+        public SizeController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -26,7 +26,7 @@ namespace ShopClothes.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select ID, ROLENAME from dbo.ROLES";
+                    select ID, Name from dbo.SIZE";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
             SqlDataReader myReader;
@@ -47,11 +47,11 @@ namespace ShopClothes.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(ROLE roles)
+        public JsonResult Post(SIZE SIZE)
         {
             string query = @"
-                    insert into dbo.ROLES (ROLENAME) values 
-                    (@ROLENAME)
+                    insert into dbo.SIZE (NAME) values 
+                    (@NAME)
                     ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
@@ -61,7 +61,7 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@NAME", SIZE.NAME);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -75,11 +75,11 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(ROLE roles)
+        public JsonResult Put(SIZE SIZE)
         {
             string query = @"
-                           update dbo.ROLES
-                           set ROLENAME = @ROLENAME
+                           update dbo.SIZE
+                           set NAME = @NAME
                             where ID = @ID
                             ";
 
@@ -91,8 +91,8 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ID", roles.ID);
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@ID", SIZE.ID);
+                    myCommand.Parameters.AddWithValue("@NAME", SIZE.NAME);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -109,7 +109,7 @@ namespace ShopClothes.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                           delete from dbo.ROLES
+                           delete from dbo.SIZE
                             where ID=@ID
                             ";
 
@@ -133,5 +133,4 @@ namespace ShopClothes.Controllers
             return new JsonResult("Deleted Successfully");
         }
     }
-
 }

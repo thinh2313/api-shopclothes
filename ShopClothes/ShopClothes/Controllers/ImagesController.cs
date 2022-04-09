@@ -13,11 +13,11 @@ namespace ShopClothes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class ImagesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public RolesController(IConfiguration configuration)
+        public ImagesController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -26,7 +26,7 @@ namespace ShopClothes.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select ID, ROLENAME from dbo.ROLES";
+                    select ID, IMAGE from dbo.IMAGE";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
             SqlDataReader myReader;
@@ -47,11 +47,11 @@ namespace ShopClothes.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(ROLE roles)
+        public JsonResult Post(IMAGES IMAGE)
         {
             string query = @"
-                    insert into dbo.ROLES (ROLENAME) values 
-                    (@ROLENAME)
+                    insert into dbo.IMAGE (IMAGE) values 
+                    (@IMAGE)
                     ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ShopClothes");
@@ -61,7 +61,7 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@IMAGE", IMAGE.IMAGE);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -75,11 +75,11 @@ namespace ShopClothes.Controllers
 
 
         [HttpPut]
-        public JsonResult Put(ROLE roles)
+        public JsonResult Put(IMAGES IMAGE)
         {
             string query = @"
-                           update dbo.ROLES
-                           set ROLENAME = @ROLENAME
+                           update dbo.IMAGE
+                           set IMAGE = @IMAGE
                             where ID = @ID
                             ";
 
@@ -91,8 +91,8 @@ namespace ShopClothes.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@ID", roles.ID);
-                    myCommand.Parameters.AddWithValue("@ROLENAME", roles.ROLENAME);
+                    myCommand.Parameters.AddWithValue("@ID", IMAGE.ID);
+                    myCommand.Parameters.AddWithValue("@IMAGE", IMAGE.IMAGE);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -109,7 +109,7 @@ namespace ShopClothes.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"
-                           delete from dbo.ROLES
+                           delete from dbo.IMAGE
                             where ID=@ID
                             ";
 
@@ -133,5 +133,4 @@ namespace ShopClothes.Controllers
             return new JsonResult("Deleted Successfully");
         }
     }
-
 }
