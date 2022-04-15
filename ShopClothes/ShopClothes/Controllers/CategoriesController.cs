@@ -85,7 +85,7 @@ namespace ShopClothes.Controllers
                            update dbo.CATEGORIES
                            set NAME = @NAME,
                             CREATEBY = @CREATEBY,
-                            CREATEAT = @CREATEAT,
+                            
                             UPDATEBY = @UPDATEBY,
                             UPDATEAT = @UPDATEAT
                             where ID = @ID
@@ -102,7 +102,7 @@ namespace ShopClothes.Controllers
                     myCommand.Parameters.AddWithValue("@ID", cg.ID);
                     myCommand.Parameters.AddWithValue("@NAME", cg.NAME);
                     myCommand.Parameters.AddWithValue("@CREATEBY", cg.CREATEBY ?? (object)DBNull.Value);
-                    myCommand.Parameters.AddWithValue("@CREATEAT", cg.CREATEAT);
+                    //myCommand.Parameters.AddWithValue("@CREATEAT", cg.CREATEAT);
                     myCommand.Parameters.AddWithValue("@UPDATEBY", cg.UPDATEBY ?? (object)DBNull.Value);
                     myCommand.Parameters.AddWithValue("@UPDATEAT", DateTime.Now);
 
